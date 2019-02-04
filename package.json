@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node":"11.1.0"
   },
   "repository": {
     "type": "git",
@@ -15,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/clockwerkz/websocket_learning/issues"
   },
-  "homepage": "https://github.com/clockwerkz/websocket_learning#readme"
+  "homepage": "https://github.com/clockwerkz/websocket_learning#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
 }
