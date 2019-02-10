@@ -4,6 +4,8 @@ socket.on('connect', function(){
 
 });
 
+socket.on('welcomeM')
+
 socket.on('newMessage', (message)=> {
     console.log('new message:', message);
 })
