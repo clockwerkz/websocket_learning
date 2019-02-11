@@ -6,11 +6,10 @@ describe('generateMessage function:', ()=> {
         const user = 'user';
         const text='test message';
         const message = generateMessage(user, text);
-        expect(message.from).toBeTruthy();
         expect(message.from).toBe(user);
-        expect(message.text).toBeTruthy();
         expect(message.text).toBe(text);
         expect(message.createdAt).toBeTruthy();
+        expect(typeof message.createdAt).toBe('number');
         done();
     });
 
