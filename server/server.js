@@ -20,8 +20,9 @@ io.on('connection', (socket)=> {
     socket.broadcast.emit('newMessage', generateMessage('Admin','New User has joined!'));
 
     socket.on('createMessage', (message, callback)=> {
-        console.log('createMessage:', message);
         const { from, text } = _.pick(message, ['from','text']);
+        socket.emit('newMessage',generateMessage(from,text));
+        socket.broadcast.emit('newMessage',generateMessage(from,text));
         callback('This is from the server');
     })
 
