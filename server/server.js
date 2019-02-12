@@ -21,9 +21,12 @@ io.on('connection', (socket)=> {
 
     socket.on('createMessage', (message, callback)=> {
         const { from, text } = _.pick(message, ['from','text']);
-        socket.emit('newMessage',generateMessage(from,text));
-        socket.broadcast.emit('newMessage',generateMessage(from,text));
+        io.emit('newMessage',generateMessage(from,text));
         callback('This is from the server');
+    })
+
+    socket.on('createLocationMessage', ({longitude, latitude})=> {
+        io.emit('newMessage', generateMessage('Admin', `${latitude}, ${longitude}`));
     })
 
     socket.on('disconnect', ()=> {

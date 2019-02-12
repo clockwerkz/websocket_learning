@@ -1,6 +1,7 @@
 const socket = io();
 const messageForm = document.getElementById('message-form');
 const messages = document.getElementById('messages');
+const locationBtn = document.getElementById('send-location');
 
 const messageCB = (data) => {
 
@@ -27,3 +28,15 @@ messageForm.addEventListener('submit', (event)=> {
     event.target['message'].value='';
 });
 
+locationBtn.addEventListener('click', (event)=> {
+    if (!navigator.geolocation) {
+        return alert('Geolocation not supported by your browser.');
+    } 
+    navigator.geolocation.getCurrentPosition((position)=> {
+        const { latitude, longitude } = position.coords;
+        socket.emit('createLocationMessage', {
+            latitude,
+            longitude
+        });
+    }, ()=> alert('Unable to fetch location.'));
+});
