@@ -18,6 +18,7 @@ socket.on('newMessage', (message)=> {
     messages.innerHTML+=(newMessage);
 })
 
+
 socket.on('disconnect', function(){
     console.log('Disconnected from server');
 });
@@ -33,10 +34,6 @@ locationBtn.addEventListener('click', (event)=> {
         return alert('Geolocation not supported by your browser.');
     } 
     navigator.geolocation.getCurrentPosition((position)=> {
-        const { latitude, longitude } = position.coords;
-        socket.emit('createLocationMessage', {
-            latitude,
-            longitude
-        });
+        socket.emit('createLocationMessage', position.coords);
     }, ()=> alert('Unable to fetch location.'));
 });

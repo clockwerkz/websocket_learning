@@ -3,7 +3,7 @@ const http = require('http');
 const _ = require('lodash');
 const express = require('express');
 const socketIO = require('socket.io');
-const { generateMessage } = require('./utils/message');
+const { generateMessage, generateLocationMessage } = require('./utils/message');
 
 const publicPath = path.join(__dirname, '..','public')
 const port = process.env.PORT || 3000;
@@ -25,9 +25,9 @@ io.on('connection', (socket)=> {
         callback('This is from the server');
     })
 
-    socket.on('createLocationMessage', ({longitude, latitude})=> {
-        io.emit('newMessage', generateMessage('Admin', `${latitude}, ${longitude}`));
-    })
+    socket.on('createLocationMessage', (coords)=> {
+        io.emit('newMessage', {from: 'Admin', text:generateLocationMessage(coords)});
+    });
 
     socket.on('disconnect', ()=> {
         console.log('User disconnected')
