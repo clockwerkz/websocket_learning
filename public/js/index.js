@@ -27,10 +27,3 @@ messageForm.addEventListener('submit', (event)=> {
     event.target['message'].value='';
 });
 
-// socket.emit('createMessage', {
-//     from:'Frank',
-//     text:'Hi'
-// }, (msg)=>{
-//     console.log(msg);
-//     console.log('Got it!');
-// });
