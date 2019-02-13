@@ -26,7 +26,7 @@ io.on('connection', (socket)=> {
     })
 
     socket.on('createLocationMessage', (coords)=> {
-        io.emit('newMessage', {from: 'Admin', text:generateLocationMessage(coords)});
+        io.emit('newLocationMessage', {from: 'Admin', link:generateLocationMessage(coords)});
     });
 
     socket.on('disconnect', ()=> {

@@ -13,9 +13,22 @@ socket.on('connect', function(){
 });
 
 socket.on('newMessage', (message)=> {
-    console.log(message);
-    const newMessage = `<li>${message.from}: ${message.text}</li>`;
-    messages.innerHTML+=(newMessage);
+    const li = document.createElement('li');
+    const text = document.createTextNode(`${message.from}: ${message.text}`);
+    li.appendChild(text);
+    messages.appendChild(li);
+})
+
+socket.on('newLocationMessage', (message)=> {
+    const a = document.createElement('a');
+    a.setAttribute('href',message.link);
+    a.setAttribute('target','blank');
+    a.text="My Current Location"
+    const text = document.createTextNode(`${message.from}:`);
+    const li = document.createElement('li');
+    li.appendChild(text);
+    li.appendChild(a);
+    messages.appendChild(li);
 })
 
 

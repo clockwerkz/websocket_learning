@@ -7,7 +7,7 @@ const generateMessage = (from, text) => {
 }
 
 const generateLocationMessage = ({latitude, longitude}) => {
-    return `<a href="https://www.google.com/maps/@?api=1&map_action=map?center=${latitude},${longitude}" target="_blank">Map of Location</a>`;
+    return `https://www.google.com/maps/@?api=1&map_action=map?center=${latitude},${longitude}`;
 }
 
 module.exports = {generateMessage, generateLocationMessage};
