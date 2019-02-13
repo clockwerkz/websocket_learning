@@ -21,7 +21,7 @@ socket.on('newMessage', (message)=> {
 
 socket.on('newLocationMessage', (message)=> {
     const a = document.createElement('a');
-    a.setAttribute('href',message.link);
+    a.setAttribute('href',message.url);
     a.setAttribute('target','blank');
     a.text="My Current Location"
     const text = document.createTextNode(`${message.from}:`);

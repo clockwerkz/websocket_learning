@@ -6,8 +6,12 @@ const generateMessage = (from, text) => {
     }
 }
 
-const generateLocationMessage = ({latitude, longitude}) => {
-    return `https://www.google.com/maps/@?api=1&map_action=map?center=${latitude},${longitude}`;
+const generateLocationMessage = ({from, coords}) => {
+    return {
+        from,
+        url:`https://www.google.com/maps/@?api=1&map_action=map?center=${coords.latitude},${coords.longitude}`,
+        createdAt: Date.now()
+    };
 }
 
 module.exports = {generateMessage, generateLocationMessage};
