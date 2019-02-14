@@ -46,7 +46,12 @@ locationBtn.addEventListener('click', (event)=> {
     if (!navigator.geolocation) {
         return alert('Geolocation not supported by your browser.');
     } 
+    locationBtn.disabled = true;
+    locationBtn.value="Sending Location...";
     navigator.geolocation.getCurrentPosition((position)=> {
-        socket.emit('createLocationMessage', position.coords);
+        socket.emit('createLocationMessage', position.coords, ()=> {
+            locationBtn.disabled = false;
+            locationBtn.value="Send Location";
+        });
     }, ()=> alert('Unable to fetch location.'));
 });
