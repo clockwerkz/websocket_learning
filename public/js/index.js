@@ -13,11 +13,15 @@ socket.on('connect', function(){
 });
 
 socket.on('newMessage', (message)=> {
-    const formattedTime = moment(message.createdAt).format('h:mm a');
-    const li = document.createElement('li');
-    const text = document.createTextNode(`${message.from} ${formattedTime}: ${message.text}`);
-    li.appendChild(text);
-    messages.appendChild(li);
+    const template = document.getElementById('message-template').innerHTML;
+    console.log(typeof template);
+    const html = Mustache.render(template);
+    messages.innerHTML += html;
+    // const formattedTime = moment(message.createdAt).format('h:mm a');
+    // const li = document.createElement('li');
+    // const text = document.createTextNode(`${message.from} ${formattedTime}: ${message.text}`);
+    // li.appendChild(text);
+    // messages.appendChild(li);
 })
 
 socket.on('newLocationMessage', (message)=> {
