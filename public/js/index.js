@@ -13,18 +13,20 @@ socket.on('connect', function(){
 });
 
 socket.on('newMessage', (message)=> {
+    const formattedTime = moment(message.createdAt).format('h:mm a');
     const li = document.createElement('li');
-    const text = document.createTextNode(`${message.from}: ${message.text}`);
+    const text = document.createTextNode(`${message.from} ${formattedTime}: ${message.text}`);
     li.appendChild(text);
     messages.appendChild(li);
 })
 
 socket.on('newLocationMessage', (message)=> {
+    const formattedTime = moment(message.createdAt).format('h:mm a');
     const a = document.createElement('a');
     a.setAttribute('href',message.url);
     a.setAttribute('target','blank');
-    a.text="My Current Location"
-    const text = document.createTextNode(`${message.from}:`);
+    a.text="My Current Location";
+    const text = document.createTextNode(`${message.from} ${formattedTime}: `);
     const li = document.createElement('li');
     li.appendChild(text);
     li.appendChild(a);
