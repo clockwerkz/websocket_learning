@@ -49,7 +49,10 @@ locationBtn.addEventListener('click', (event)=> {
     locationBtn.disabled = true;
     locationBtn.value="Sending Location...";
     navigator.geolocation.getCurrentPosition((position)=> {
-        socket.emit('createLocationMessage', position.coords, ()=> {
+        socket.emit('createLocationMessage', {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
+            }, ()=> {
             locationBtn.disabled = false;
             locationBtn.value="Send Location";
         });

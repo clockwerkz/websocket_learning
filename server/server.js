@@ -26,6 +26,7 @@ io.on('connection', (socket)=> {
     })
 
     socket.on('createLocationMessage', (coords, callback)=> {
+        console.log(coords);
         io.emit('newLocationMessage', generateLocationMessage({from:'Admin', coords}));
         callback();
     });

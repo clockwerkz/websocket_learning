@@ -9,4 +9,12 @@ const moment = require('moment');
 
 const time = moment();
 
-console.log(time.format('h:mm a'));
+
+const createdAt = 1550208343232;
+const date_made = moment(createdAt);
+
+console.log(date_made.format('MMM Do, YYYY h:mm a'));
+
+const someTimestamp = moment().valueOf();
+console.log('someTimestamp', someTimestamp);
+//console.log(time.format('h:mm a'));
