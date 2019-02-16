@@ -3,8 +3,20 @@ const messageForm = document.getElementById('message-form');
 const messages = document.getElementById('messages');
 const locationBtn = document.getElementById('send-location');
 
+
+//Function just to show how emitters/listeners can implement callback functions
 const messageCB = (data) => {
 
+}
+
+const scrollToBottom = () => {
+    const lastMessage = messages.querySelector('li:last-child');
+    console.log(lastMessage.scrollHeight);
+    const { scrollHeight, clientHeight, scrollTop } = messages;
+    console.log(scrollHeight, clientHeight, scrollTop);
+    if (clientHeight + scrollTop >= scrollHeight) {
+        console.log('should scroll down');
+    }
 }
 
 socket.on('connect', function(){
@@ -15,25 +27,25 @@ socket.on('connect', function(){
 socket.on('newMessage', (message)=> {
     const formattedTime = moment(message.createdAt).format('h:mm a');
     const template = document.getElementById('message-template').innerHTML;
-    console.log(typeof template);
     const html = Mustache.render(template, {
         text: message.text,
         from: message.from,
         createdAt: formattedTime
     });
     messages.innerHTML += html;
+    scrollToBottom();
 })
 
 socket.on('newLocationMessage', (message)=> {
     const formattedTime = moment(message.createdAt).format('h:mm a');
     const template = document.getElementById('location-message-template').innerHTML;
-    console.log(typeof template);
     const html = Mustache.render(template, {
         from: message.from,
         url: message.url,
         createdAt: formattedTime
     });
     messages.innerHTML += html;
+    scrollToBottom();
 })
 
 
