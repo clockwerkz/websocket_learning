@@ -13,8 +13,7 @@ const scrollToBottom = () => {
     const lastMessage = messages.querySelector('li:last-child').scrollHeight;
     let { scrollHeight, clientHeight, scrollTop } = messages;
     if ((clientHeight + scrollTop + lastMessage) >= scrollHeight) {
-        //messages.scrollBy(0,lastMessage);
-        console.log('should scroll');
+        messages.scrollBy(0,lastMessage);
     }
 }
 
