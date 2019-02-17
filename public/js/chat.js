@@ -19,7 +19,19 @@ const scrollToBottom = () => {
 
 socket.on('connect', function(){
     console.log('Connected to Server');
-
+    const URLparams = new URLSearchParams(window.location.search);
+    const params = {
+        name: URLparams.get('name'),
+        room: URLparams.get('room')
+    }
+    socket.emit('join', params, (err)=>{
+        if (err) {
+            alert(err);
+            window.location.href='/';
+        } else {
+            console.log('No error');
+        }
+    });
 });
 
 socket.on('newMessage', (message)=> {
