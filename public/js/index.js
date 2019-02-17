@@ -10,12 +10,11 @@ const messageCB = (data) => {
 }
 
 const scrollToBottom = () => {
-    const lastMessage = messages.querySelector('li:last-child');
-    console.log(lastMessage.scrollHeight);
-    const { scrollHeight, clientHeight, scrollTop } = messages;
-    console.log(scrollHeight, clientHeight, scrollTop);
-    if (clientHeight + scrollTop >= scrollHeight) {
-        console.log('should scroll down');
+    const lastMessage = messages.querySelector('li:last-child').scrollHeight;
+    let { scrollHeight, clientHeight, scrollTop } = messages;
+    if ((clientHeight + scrollTop + lastMessage) >= scrollHeight) {
+        //messages.scrollBy(0,lastMessage);
+        console.log('should scroll');
     }
 }
 
