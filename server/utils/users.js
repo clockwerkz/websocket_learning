@@ -35,22 +35,9 @@ class Users {
     }
 
     getUserList(room) {
-        const userList = this.users.filter(user => {
-            if (user.room === room) {
-                return user.name
-            }
-        });
-        console.log(userList);
+        const userList = this.users.filter(user =>user.room === room).map(user => user.name);
         return userList;
     }
 }
 
 module.exports = {Users}; 
-
-const users = new Users();
-users.addUser(2, 'Carlos', 'room');
-users.addUser(3, 'Carlds', 'room2');
-users.getUserList('room');
-//removeUser(id)
-//getUser(id)
-//getUserList(room)

@@ -1,16 +1,16 @@
 const expect = require('expect');
 const { Users } = require('./users');
 
-let users;
+let users, user1, user2;
 
 beforeEach(()=> {
     users = new Users();
-    const user1 = {
+    user1 = {
         id: 1,
         name: 'User1',
         room: 'Room1'
     };
-    const user2 = {
+    user2 = {
         id: 2,
         name: 'User2',
         room: 'Room2'
@@ -27,10 +27,9 @@ describe('Users Class:',()=> {
         const resUser = users.addUser(user.id, user.name, user.room);
         expect(users.users).toEqual([user]);
     });
-    it('should return a list of users belonging to a room', ()=> {
-        it('should return the list of users that belong to a room', ()=> {
-            const userList = users.getUserList('Room1');
-            expect(userList.length).toBe(0);
-        });
+    it('should return an array with user names of a room', ()=>{
+        users.addUser(user1.id, user1.name, user1.room);
+        const userList = users.getUserList(user1.room);
+        expect(userList.length).toBe(1);
     });
 });
