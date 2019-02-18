@@ -10,7 +10,7 @@ const generateMessage = (from, text) => {
     }
 }
 
-const generateLocationMessage = ({from, coords}) => {
+const generateLocationMessage = (from, coords) => {
     return {
         from,
         url:`https://www.google.com/maps/@?api=1&map_action=map?center=${coords.latitude},${coords.longitude}`,

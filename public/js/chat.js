@@ -34,6 +34,19 @@ socket.on('connect', function(){
     });
 });
 
+socket.on('updateUserList', (users)=> {
+    console.log('Users list', users);
+    const ol = document.createElement('ol');
+    users.forEach((name)=> {
+        let li = document.createElement('li');
+        li.innerHTML = name;
+        ol.appendChild(li);
+    })
+    const usersList = document.getElementById('users');
+    usersList.innerHTML = '';
+    usersList.appendChild(ol);
+});
+
 socket.on('newMessage', (message)=> {
     const formattedTime = moment(message.createdAt).format('h:mm a');
     const template = document.getElementById('message-template').innerHTML;
@@ -65,7 +78,7 @@ socket.on('disconnect', function(){
 
 messageForm.addEventListener('submit', (event)=> {
     event.preventDefault();
-    socket.emit('createMessage', {from:'User', text:event.target['message'].value}, messageCB);
+    socket.emit('createMessage', {text:event.target['message'].value}, messageCB);
     event.target['message'].value='';
 });
 

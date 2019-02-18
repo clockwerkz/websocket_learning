@@ -22,7 +22,7 @@ describe('generateLocationMessage', ()=> {
             latitude: 1,
             longitude: 1
         }
-        const message = generateLocationMessage({from, coords});
+        const message = generateLocationMessage(from, coords);
         expect(message.from).toBe(from);
         expect(message.url).toBe(`https://www.google.com/maps/@?api=1&map_action=map?center=${coords.latitude},${coords.longitude}`);
         expect(typeof message.createdAt).toBe('number');

@@ -18,16 +18,11 @@ class Users {
     }
 
     removeUser(id) {
-        const user = this.getUser(id);
-        if (user) {
-            const index = this.users.indexOf(user);
-            this.users = this.users.slice(0, index).concat(this.users.slice(index+1));
-            console.log(this.users);
-            return user;
-        } else {
-            console.log('unable to find user');
-            return;
+        const userToRemove = this.getUser(id);
+        if (userToRemove) {
+            this.users = this.users.filter(user => user.id !== id);
         }
+        return userToRemove;
     }
 
     getUser (id) {
