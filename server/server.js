@@ -36,14 +36,18 @@ io.on('connection', (socket)=> {
     socket.on('createMessage', (message, callback)=> {
         const user = users.getUser(socket.id);
         const { text } = _.pick(message, ['text']);
-        io.to(user.room).emit('newMessage',generateMessage(user.name,text));
-        callback('This is from the server');
+        if (user && isRealString(text)) {
+            io.to(user.room).emit('newMessage',generateMessage(user.name,text));
+            callback('This is from the server');
+        }
     })
 
     socket.on('createLocationMessage', (coords, callback)=> {
         const user = users.getUser(socket.id);
-        io.to(user.room).emit('newLocationMessage', generateLocationMessage(user.name, coords));
-        callback();
+        if (user) {
+            io.to(user.room).emit('newLocationMessage', generateLocationMessage(user.name, coords));
+            callback();
+        }
     });
 
     socket.on('disconnect', ()=> {
