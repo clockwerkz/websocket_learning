@@ -4,20 +4,58 @@ const axios = require('axios');
 // 20 USD is worth 26 CAD. You can spend these in the following countries: Canada
 access_key = '0df628b3f7b00808e1bf521618ef3bd7';
 api_endpoint = 'http://apilayer.net/api/live';
+restCurrencyEndpoint = 'https://restcountries.eu/rest/v2/currency/';
 //from = USD, to = CAD, amount = 20, format =1
 const convertCurrency = async (oldCurrency, newCurrency, amount) => {
-    const exchange = fetch(`${api_endpoint}?access_key=${access_key}&currencies=${oldCurrency},${newCurrency}&format=1`)
-        .then(res => res.json())
-        .then(data => console.log(data))
-        .catch(err => console.log(err));
-
+    const exchangeRate = await getExchangeRate(oldCurrency.toUpperCase(), newCurrency.toUpperCase());
+    const newAmount = (amount * exchangeRate).toFixed(2);
+    const countries = await getCountries(newCurrency);
+    return `${amount} ${oldCurrency} is worth ${newAmount} ${newCurrency}. You can spend these in the following countries: ${countries.join(', ')}.`;
 }
 
 
-const getExchangeRate = (from, to) => {
-    axios.get(`${api_endpoint}?access_key=${access_key}&currencies=${from},${to}&format=1`)
-        .then(res => console.log(res));
+const getExchangeRate = async (from, to) => {
+    try {
+        const res = await axios.get(`${api_endpoint}?access_key=${access_key}&currencies=${from},${to}&format=1`);
+        const rate = res.data.quotes[`${from}${to}`]; 
+        if (isNaN(rate)) {
+            throw new Error();
+        }
+        return rate;
+    } catch (e) {
+        throw new Error(`Unable to get exchange rate for ${from} and ${to}.`);
+    }
 }
 
+const getCountries = async (currencyCode) => {
+    try {
+    const res = await axios.get(`${restCurrencyEndpoint}${currencyCode}`);
+    return res.data.map(country => country.name);
+    } catch (err) {
+        throw new Error(`Unable to get countries that use ${currencyCode}`);
+    }
+}
 
-getExchangeRate('USD', 'CAD');
+convertCurrency('usd','cad',20.00)
+    .then(res => console.log(res))
+    .catch(err => console.log(err.message));
+
+
+const add = async (a,b) => {
+    return a + b + c;
+}
+
+const doWork = async () => {
+    try {
+        const result = await add(12,13);
+        return result;
+    } catch (e) {
+        return 10;
+    }
+}
+
+doWork().then(data => {
+    console.log(data);
+}).catch(err => {
+    console.log('Something went wrong');
+});
